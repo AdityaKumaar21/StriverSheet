@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        vector<int>pre(height.size(),0);
+        vector<int>suf(height.size(),0);
+        int premax=INT_MIN;
+        int sufmax=INT_MIN;
+        for(int i=0;i<height.size();i++){
+            int curr=height[i];
+            premax=max(curr,premax);
+            pre[i]=premax;
+            int lcurr=height[height.size()-i-1];
+            sufmax=max(lcurr,sufmax);
+            suf[height.size()-i-1]=sufmax;
+        }
+        int ans=0;
+        for(int i=0;i<height.size();i++){
+            int x=min(pre[i],suf[i]);
+            ans+=height[i]-x;
+        }
+        return -ans;
+    }
+};
